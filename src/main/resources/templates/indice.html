@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Pagina Inicio</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <h1>Inicio</h1>
+        <a th:href="@{/anexar}">Alta Individuo</a>
+        <div th:if= "${individuos != null and !individuos.empty}" >
+            <table border="2">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Telefono</th>
+                    <th>Correo</th>
+                    <th>Edad</th>
+                    <th>Cambiar</th> 
+                    <th>Borrar</th> 
+                </tr>
+                <tr th:each="individuo : ${individuos}">
+                    <td th:text="${individuo.nombre}">Muestra Nombre</td>
+                    <td th:text="${individuo.apellido}">Muestra Apellido</td>
+                    <td th:text="${individuo.telefono}">Muestra Telefono</td>
+                    <td th:text="${individuo.correo}">Muestra Correo</td>
+                    <td th:text="${individuo.edad}">Muestra Edad</td>
+                    <td> <a th:href="@{/cambiar/}+${individuo.id_individuo} " th:text="Cambiar"/></td>
+                    <td> <a th:href="@{/borrar(id_individuo = ${individuo.id_individuo})} " th:text="Borrar"/></td>
+                </tr>
+            </table>
+        </div>
+        <div th:if="${individuos == null or individuos.empty}" >
+            La lista no tiene informacion
+        </div>
+    </body>
+</html>
