@@ -4,9 +4,11 @@ import com.example.domain.Individuo;
 import lombok.extern.slf4j.Slf4j;
 import com.example.servicio.IndividuoServicio;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -36,7 +38,10 @@ public class ControladorREST {
     }
 
     @PostMapping("/salvar")
-    public String salvar(Individuo individuo) {
+    public String salvar(@Valid Individuo individuo, Errors error) {
+        if(error.hasErrors()){
+            return "cambiar";
+        }
         individuoServicio.salvar(individuo);
         return "redirect:/";
     }
